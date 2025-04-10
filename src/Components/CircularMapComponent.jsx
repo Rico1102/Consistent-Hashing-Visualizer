@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import useNodeStore from "../store/nodesMap";
 import dbStore from "../store/nodesStorage";
 import useSortedNodesHashMapStore from "../store/sortedNodesHashMap";
@@ -21,15 +22,24 @@ const CircularMapComponent = () => {
 
             const serverName = `server-${i + 1}`;
             const { x, y } = findXY(position, anglePerPart, radius);
-            addNode(serverName, position, x, y, "blue");
+            const id = uuidv4();
+            addNode(id, serverName, position, x, y, "blue");
         }
     };
 
     const handleReset = () => {
         console.log("Resetting state...");
+
+        //Clearing the persistent state
         useSortedNodesHashMapStore.persist.clearStorage();
         dbStore.persist.clearStorage();
         useNodeStore.persist.clearStorage();
+
+        // Reset in-memory state
+        useSortedNodesHashMapStore.getState().reset();
+        dbStore.setState({ nodesStorage: {} });
+        useNodeStore.setState({ nodes: [], nodeCount: 0 });
+
         window.location.reload();
         initialSetup();
         console.log("State reset complete.");
