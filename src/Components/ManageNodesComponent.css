@@ -54,20 +54,20 @@
     background-color: #fff;
 }
 
+/* Node list styling */
 .nodes-list {
     flex: 6;
-    padding: 5px;
+    margin-top: 20px;
     border: 1px solid #ccc;
+    padding: 15px;
     border-radius: 8px;
     background-color: #fff;
-    color: #333;
-    font-family: Arial, sans-serif;
 }
 
 .nodes-list h4 {
-    margin: 0 0 10px 0;
+    margin-bottom: 10px;
     font-size: 18px;
-    color: #000000;
+    color: #333;
 }
 
 .nodes-list ul {
@@ -78,10 +78,51 @@
 .nodes-list li {
     padding: 5px 0;
     border-bottom: 1px solid #eee;
+    color: #333;
 }
 
 .nodes-list li:last-child {
     border-bottom: none;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+    color: #333;
+}
+
+.data-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.data-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.remove-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.remove-button:hover {
+    background-color: #c82333;
 }
 
 .top-part,

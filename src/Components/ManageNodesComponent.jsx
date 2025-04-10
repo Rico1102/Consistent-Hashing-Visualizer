@@ -9,6 +9,7 @@ import findNextServer from "../utils/findNextServer";
 const ManageNodesComponent = () => {
     const state = useNodeStore((state) => state.nodes);
     const addNode = useNodeStore((state) => state.addNodes);
+    const removeNode = useNodeStore((state) => state.removeNode);
     const addDataToNode = dbStore((state) => state.addDataToNode);
     const [name, setName] = useState("");
     const [position, setPosition] = useState("");
@@ -24,6 +25,10 @@ const ManageNodesComponent = () => {
         } else {
             alert("Please enter a valid name and position (0-100).");
         }
+    };
+
+    const handleRemoveNode = (nodeId) => {
+        removeNode(nodeId);
     };
 
     const handleSubmitNewForm = () => {
@@ -74,20 +79,40 @@ const ManageNodesComponent = () => {
                         />
                     </div>
                     <button type="submit" className="button">
-                        Add
+                        Add Server
                     </button>
                 </form>
             </div>
 
             <div className="nodes-list">
                 <h4>Nodes List</h4>
-                <ul>
-                    {state.map((node, index) => (
-                        <li key={index}>
-                            {node.name} - Position: {node.position}
-                        </li>
-                    ))}
-                </ul>
+                <table className="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {state.map((node, index) => (
+                            <tr key={index}>
+                                <td>{node.name}</td>
+                                <td>{node.position}</td>
+                                <td>
+                                    <button
+                                        className="remove-button"
+                                        onClick={() =>
+                                            handleRemoveNode(node.id)
+                                        }
+                                    >
+                                        Remove
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
 
             {/* Bottom Part: New Form */}
