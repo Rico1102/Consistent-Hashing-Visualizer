@@ -1,7 +1,7 @@
 import React from "react";
 import "./ModalComponent.css";
 
-const ModalComponent = ({
+const ServerModalComponent = ({
     isOpen,
     onAccept,
     onReject,
@@ -51,4 +51,4 @@ const ModalComponent = ({
     );
 };
 
-export default ModalComponent;
+export default ServerModalComponent;
