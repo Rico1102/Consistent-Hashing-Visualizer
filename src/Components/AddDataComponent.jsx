@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import dbStore from "../store/nodesStorage";
 import getHash from "../utils/getHash";
 import findNextServer from "../utils/findNextServer";
+import DataModalComponent from "./DataModalComponent";
 
 const AddDataComponent = () => {
     const addDataToNode = dbStore((state) => state.addDataToNode);
     const [id, setId] = useState("");
     const [newName, setNewName] = useState("");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [destinationServerName, setDestinationServerName] = useState("");
 
     const handleSubmitNewForm = () => {
         if (id.trim() && newName.trim()) {
             const hashPosition = getHash(id);
-            console.log(`Hash Position: ${hashPosition}`);
-            const serverUUID = findNextServer(hashPosition).uuid;
-            console.log(`Server UUID: ${serverUUID}`);
-            console.log(`ID: ${id}, Name: ${newName}`);
+            const serverDetail = findNextServer(hashPosition);
+            const serverUUID = serverDetail.uuid;
+            const serverName = serverDetail.serverDetail.name;
+            setDestinationServerName(serverName);
+            setIsModalOpen(true);
             addDataToNode(serverUUID, {
                 id: id,
                 name: newName,
@@ -24,6 +28,10 @@ const AddDataComponent = () => {
         } else {
             alert("Please enter valid ID and Name.");
         }
+    };
+
+    const handleClose = () => {
+        setIsModalOpen(false);
     };
 
     return (
@@ -57,6 +65,11 @@ const AddDataComponent = () => {
                     Submit
                 </button>
             </form>
+            <DataModalComponent
+                isOpen={isModalOpen}
+                onClose={handleClose}
+                serverName={destinationServerName}
+            />
         </div>
     );
 };

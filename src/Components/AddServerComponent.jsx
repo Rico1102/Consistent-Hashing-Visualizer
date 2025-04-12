@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { migrationStatsOnServerAddition } from "../utils/dataMigrationStats";
 import dbStore from "../store/nodesStorage";
 import useNodeStore from "../store/nodesMap";
-import ServerModalComponent from "./ModalComponent";
+import ServerModalComponent from "./ServerModalComponent";
 
 const AddServerComponent = () => {
     const [name, setName] = useState("");
