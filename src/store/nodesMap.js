@@ -19,6 +19,15 @@ const useNodeStore = create(
             nodeCount: 0,
             addNodes: (id, name, position, x, y, color) => {
                 set((state) => {
+                    console.log(
+                        "Adding node:",
+                        id,
+                        name,
+                        position,
+                        x,
+                        y,
+                        color
+                    );
                     return {
                         nodes: [
                             ...state.nodes,
@@ -37,11 +46,14 @@ const useNodeStore = create(
                 dbStore.getState().addNode(id); // Add the node to the storage
                 useSortedNodesHashMapStore.getState().markCell(position, id); // Mark the cell in the sorted nodes hash map
             },
-            removeNode: (uuid) =>
+            removeNode: (uuid) => {
+                console.log("Removing node:", uuid);
                 set((state) => ({
-                    nodes: state.nodes.filter((node) => node.uuid !== uuid),
+                    nodes: state.nodes.filter((node) => node.id !== uuid),
                     nodeCount: state.nodeCount - 1,
-                })),
+                }));
+                dbStore.getState().removeNode(uuid); // Remove the node from the storage
+            },
         }),
         {
             name: "nodeStore", // key in localStorage

@@ -16,6 +16,7 @@ const AddServerComponent = () => {
 
     const handleAddNode = () => {
         if (name.trim() && position >= 0 && position <= 100) {
+            console.log("Adding node with position: ", position);
             const migrationResult = migrationStatsOnServerAddition(position);
             setMigrationData(migrationResult);
             console.log(
@@ -90,6 +91,11 @@ const AddServerComponent = () => {
                     onReject={handleReject}
                     onClose={handleClose}
                     migrationData={migrationData.data}
+                    message={
+                        isModalOpen
+                            ? `Data that will be migrated from ${migrationData.oldServerDetails.name} to ${name}`
+                            : ""
+                    }
                 />
             </form>
         </div>

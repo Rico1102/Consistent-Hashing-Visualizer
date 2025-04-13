@@ -35,3 +35,26 @@ export const migrationStatsOnServerAddition = (position) => {
     );
     return { data: dataToMigrate, oldServerDetails: nextServerNodeDetail };
 };
+
+export const migrationStatsOnServerDeletion = (position) => {
+    const serverDetails = useSortedNodesHashMapStore.getState().cells;
+    const serverStorage = dbStore.getState().nodesStorage;
+    const nodeStore = useNodeStore.getState().nodes;
+
+    const nextServer = findNextServer(position);
+    const currentServer = serverDetails[position];
+
+    console.log(`Next Server Position: ${nextServer.position}`);
+
+    const currentServerData = serverStorage[currentServer.uuid] || [];
+
+    return {
+        data: currentServerData,
+        nextServerDetails: nodeStore.find(
+            (node) => node.id === nextServer.uuid
+        ),
+        currentServerDetails: nodeStore.find(
+            (node) => node.id === currentServer.uuid
+        ),
+    };
+};

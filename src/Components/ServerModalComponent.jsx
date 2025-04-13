@@ -7,6 +7,7 @@ const ServerModalComponent = ({
     onReject,
     onClose,
     migrationData,
+    message,
 }) => {
     if (!isOpen) return null;
 
@@ -14,7 +15,7 @@ const ServerModalComponent = ({
         <div className="modal-overlay">
             <div className="modal-content">
                 <div className="table-container">
-                    <h3>Data which will be migrated to new server</h3>
+                    <h3>{message}</h3>
                     <table className="data-table">
                         <thead>
                             <tr>
